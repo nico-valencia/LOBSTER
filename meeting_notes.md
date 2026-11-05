@@ -29,44 +29,62 @@
     - BDH, BHZ/1/2 : pressure gauge, vertical and two horizontals
     - BDH, BHZ/N/E : pressure gauge, vertical, north, and east
 
-CH1/2 → BH1/2 → BHN/E : these response files are small so feel free to copy and paste to make response files for each ‘stage’
+- response files are small so we can reproduce them for each Stage, potentially 1/2 --> N/E stages may have same horizontal response! (and we can write a test for this...)
 
-Seismometers are all nanometrics so response for all channels should eb the same (maybe z is different due to gravity…) 
+- response depends on seismometer used (nanometrics, trillium) so be sure to be careful with this
 
-We could even write a test to see if responses are identical after each ‘stage’ → BH and BZ only! 
+#### Response Files - pzfiles
 
-pzfiles/channel/file
+```
+.../ORCA/PacOrca_database/RESP/pzfiles/BH1/RESP.XX.MM04..BH1
+.../main_repo/metadata_repo/response_repo/pzfiles/channelcode/RESP.network.station..channelcode
+```
+And each of these files looks like this: 
 
-Second response file: gain, sensitivity, num of zeros, num of poles, the zeros, the poles
+```
+1459730000.0
+0.2
+3.38073468e+18
+4
+7
+0j 0j -108+0j -161+0j
+-0.01815+0.01799j -0.01815-0.01799j -173+0j -196+231j -196-231j -732+1415j -732-1415j
+```
 
+pzfiles have gain, sensitivity, some other value, # of zeroes, # of poles, values of zeroes, values of poles
 
-PacORCA_database : the target!! , template for the workflow we are making… 
+## GOALS 
 
+`PacORCA_database/` is the target!! This is a template for the workflow we are making...
 
+**Deliverable 1**: File with all station metadata, *which will be a supp info file for data paper and used all the time for our research problems...*
 
+File Structure: 
 
+```
+Station Code
+Network
+First Day and Last Day of Data Acquisition
+Latitude / Longitude / Depth
+Sensor Type (ex: ANT240 is an Angler style OBS with a Trillium 240 seismometer)
+Instrument Name (will come from instrument provider)
+Channel Names (CH0/1/2/3 & BDH/1/2/Z)
+RESP filepaths (for all channels)
+pzfiles fileoaths (for all channels)
+Orientation (H1 & H2 azimuths)
+Orientation 2 std error 
+On/Off Date in Serial Time 
+Deployment Duration
+Good Data % on Channel 1-N
+Validtiming? (bool)
+Diff Sensor? (bool, differential vs absolute measurement)
+Drift Rate (ms/day)
+Timing Method (clock or ANCC)
+Loggerstatus (bool)
+Main Battery (bool)
+Data Saved? (bool)
+```
 
-
-File with all the latlons for ORCA
-Status table (productible): this will be a supp info file for data paper 
-	Station codes, networks 
-	Ondate YYYYMMDD and offset 
-	Lat lon depth 
-	Sensor type: ANT240 (ANgler , Trillium 240) naming convention
-	Instrument: organization and instrument name 
-	Channels 1-8 
-	RESP files pwd 1-8 
-	H1 azimuth and H2 azimuth (orientation!)
-	2 sigma error on azimuth 
-	Serial time on date / offset 
-	Deployment duration 
-	Data fraction on channel 1-8 
-	Validtiming? 
-	Diffsensor : differential vs absolute voltage 
-	Drift rate for clock (ideally a unit with this) ms / day ? 
-	Timing method (clock or ANCC)
-	Loggerstatus
-	Did it work value? 
 	
 ALL FILES TXT OR CSV FORMAT 
 Orientation_file : repeat station lat lon and orientations 

@@ -23,11 +23,17 @@ Outline of how code will work:
    Once again, cull data based on thresholds and save to "PDF quality matrix", dimension sizes to be determined...
     * **Figure**: PDF per station for all channels. (similar plots found in PacificORCA data paper and SuppInfo 3/4.)
 
-7. 
+7. ATaCR for oceanic noise removal. This will be a requirement for users for this package, and we can setup a `check_ATaCR_filepaths()` function or code to make filepaths to the different data, response files, compliance files, and data quality matrix exist and can be used. (another test script...)
+    * will require scripts to find clean hourly data on good days without seismic data
+    * **Figure**: Example of oceanic noise removal on trace of choice. (similar to ORCA data paper figure)
 
+8. Calculate station orientations, using Rayleigh wave method (?). 
+    * catalog of seismic events to use for this (nominal magnitude, epicentral distance, good azimuthal spread(?))
+    * **Figure**: orientation calculation gridsearch and traces (Jess has code for this already)
 
-random text I wrote 
-    random text I have a tab over to the right 
+9. DEMO DATA PRODUCTS FROM THE RAW OBS DATA
+    * **Figure**: create a record section for an earthquake / catalog of earthquakes
+    * **Figure**: previous examples of spectrogram stacks, data quality matrix in plot form, oceanic noise removal examples
+    * **Figure**: differential travel time stacks (similar to what is shown in ORCA paper)
 
-test again 
-
+    
