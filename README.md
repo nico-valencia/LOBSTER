@@ -1,6 +1,6 @@
-# OBSqcpp
+# LOBSTER
 
-## Ocean Bottom Seismometer quality control & pre processing 
+## Library for Ocean Bottom Seismometer Treatment, Evaluation, and Review
 
 WIP for analysis of raw data from OBS. 
 
