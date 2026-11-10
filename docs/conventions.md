@@ -2,6 +2,8 @@
 
 In order for the workflow to work with either Python or MATLAB, both languages must be able to read and write what the other language does. This document is meant to cover everything shared between the two. 
 
+*notes from nico:* this document is AI generated and thus follows a lot of the conventions for software development...while this may be preferred for a shareable tool it may not be as accessible to the geophysical community. this also goes along with some of the file formats that are preferred here (hdf5) that we might not want, we should discuss this! 
+
 ## 1. Config
 
 - One JSON file per experiment, in `config/`. `config/PacORCA.json` is the template.
