@@ -1,0 +1,109 @@
+{
+  "lobster_config_version": "0.1",
+
+  "experiment": {
+    "name": "PacORCA",
+    "network": "XX",
+    "stations": ["MM04"]
+  },
+
+  "paths": {
+    "root": "/path/to/main_repo",
+    "raw_data": "{root}/data_repo",
+    "response_files": "{root}/metadata_repo/response_repo/response_files",
+    "pzfiles": "{root}/metadata_repo/response_repo/pzfiles",
+    "event_catalog": "{root}/metadata_repo/event_catalog.csv",
+    "outputs": "{root}/outputs",
+    "atacr_data": "{root}/atacr/data",
+    "atacr_spectra": "{root}/atacr/spectra",
+    "atacr_transfer_functions": "{root}/atacr/transfer_functions",
+    "atacr_corrected": "{root}/atacr/corrected"
+  },
+
+  "file_conventions": {
+    "raw_format": "msd",
+    "raw_files_per": "day",
+    "raw_start_time_varies_by_station": true,
+    "raw_file_glob": "{station}.{channel}.{YYYY}.{JJJ}.*.*.*.{ext}",
+    "raw_file_pattern": "{station}.{channel}.{YYYY}.{JJJ}.{hh}.{mm}.{ss}.{ext}",
+    "resp_file_pattern": "{response_files}/{channel}/RESP.{network}.{station}..{channel}",
+    "pzfile_pattern": "{pzfiles}/{channel}/RESP.{network}.{station}..{channel}",
+    "output_pattern_station_channel": "{outputs}/{product}/{station}/{station}.{channel}.{product}.nc"
+  },
+
+  "channels": {
+    "scheme_in_use": "BH",
+    "schemes": {
+      "CH": {
+        "CH0": null,
+        "CH1": null,
+        "CH2": null,
+        "CH3": null
+      },
+      "BH": {
+        "BDH": "pressure",
+        "BHZ": "vertical",
+        "BH1": "H1",
+        "BH2": "H2"
+      },
+      "BH_NE": {
+        "BDH": "pressure",
+        "BHZ": "vertical",
+        "BHN": "north",
+        "BHE": "east"
+      }
+    }
+  },
+
+  "time": {
+    "timezone": "UTC",
+    "iso_format": "yyyy-MM-ddTHH:mm:ssZ",
+    "serial_epoch": "1970-01-01T00:00:00Z",
+    "serial_units": "days"
+  },
+
+  "quality": {
+    "codes": {
+      "no_data": "NaN",
+      "bad": 0,
+      "low_psd": 1,
+      "good": 2
+    },
+    "psd": {
+      "window_seconds": 3600,
+      "daily_threshold_absolute": {
+        "pressure": null,
+        "vertical": null,
+        "H1": null,
+        "H2": null
+      },
+      "outlier_threshold_relative_to_median_db": {
+        "pressure": null,
+        "vertical": null,
+        "H1": null,
+        "H2": null
+      }
+    }
+  },
+
+  "response": {
+    "output_units": {
+      "pressure": "PA",
+      "vertical": "VEL",
+      "H1": "VEL",
+      "H2": "VEL"
+    },
+    "filter_fir_response": true
+  },
+
+  "orientation": {
+    "method": "rayleigh",
+    "min_magnitude": null,
+    "epicentral_distance_range_deg": [null, null]
+  },
+
+  "atacr": {
+    "required": true,
+    "min_obstools_version": null
+  }
+}
