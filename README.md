@@ -1,6 +1,6 @@
 # LOBSTER
 
-## Library for Ocean Bottom Seismometer Timely Evaluation and Review
+## Library for Ocean Bottom Seismometer daTa Evaluation and Review
 
 WIP for analysis of raw data from OBS. 
 
