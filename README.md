@@ -35,5 +35,9 @@ Outline of how code will work:
     * **Figure**: create a record section for an earthquake / catalog of earthquakes
     * **Figure**: previous examples of spectrogram stacks, data quality matrix in plot form, oceanic noise removal examples
     * **Figure**: differential travel time stacks (similar to what is shown in ORCA paper)
+  
+
+## MASTER DIRECTORY NAMES
+insert dir here
 
     
