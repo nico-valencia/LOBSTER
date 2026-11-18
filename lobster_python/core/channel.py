@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 from pathlib import Path
+from obspy import UTCDateTime
 
 
 @dataclass
@@ -24,3 +25,44 @@ class Channel:
     @property
     def n_waveforms(self) -> int:
         return len(self.waveform_files)
+
+
+    def get_waveform_files(self, starttime, endtime):
+        """
+        Return waveform files within a specified UTC date range.
+
+        Parameters
+        ----------
+        starttime : UTCDateTime
+            Beginning of the requested time range.
+        endtime : UTCDateTime
+            End of the requested time range.
+
+        Returns
+        -------
+        list
+            Waveform file paths within the requested time range.
+        """
+
+        selected_files = []
+
+        for file in self.waveform_files:
+
+            filename = Path(file).name
+            parts = filename.split(".")
+
+            year = int(parts[2])
+            julian_day = int(parts[3])
+
+            file_time = UTCDateTime(
+                year=year,
+                julday=julian_day,
+                hour=int(parts[4]),
+                minute=int(parts[5]),
+                second=int(parts[6])
+            )
+
+            if starttime <= file_time <= endtime:
+                selected_files.append(file)
+
+        return selected_files
