@@ -408,7 +408,8 @@ from scipy.signal import welch
 def calculate_psd(
     data,
     sampling_rate,
-    window_seconds=1000,
+    window_seconds=600,
+    min_frequency=0.0,
     max_frequency=20.0
 ):
     """
@@ -447,12 +448,16 @@ def calculate_psd(
     if window_seconds <= 0:
         raise ValueError("window_seconds must be positive.")
 
-    if not np.all(np.isfinite(data)):
-        raise ValueError(
-            "data contains NaN or infinite values. "
-            "Handle gaps or invalid samples before calculating the PSD."
-        )
+    if min_frequency < 0:
+        raise ValueError("min_frequency cannot be negative.")
 
+    if max_frequency is not None and max_frequency <= min_frequency:
+        raise ValueError("max_frequency must exceed min_frequency.")
+
+    if not np.all(np.isfinite(data)):
+        raise ValueError("data contains NaN or infinite values.")
+
+    
     nperseg = min(
         int(round(window_seconds * sampling_rate)),
         len(data)
@@ -461,20 +466,27 @@ def calculate_psd(
     if nperseg < 2:
         raise ValueError("Welch window contains fewer than two samples.")
 
+
     frequencies, power = welch(
-        data,
-        fs=sampling_rate,
-        nperseg=nperseg,
-        return_onesided=True,
-        scaling="density"
-    )
+            data,
+            fs=sampling_rate,
+            nperseg=nperseg,
+            return_onesided=True,
+            scaling="density",
+            detrend=False
+        )
+
+    # frequency filtering
+    mask = frequencies >= min_frequency
 
     if max_frequency is not None:
-        mask = frequencies <= max_frequency
-        frequencies = frequencies[mask]
-        power = power[mask]
+        mask &= frequencies <= max_frequency
+
+    frequencies = frequencies[mask]
+    power = power[mask]
 
     return frequencies, power
+
 
 
 # from pathlib import Path
